@@ -1,0 +1,20 @@
+{
+  "name": "basic-node-express-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://tousifmudassar@github.com/tousifmudassar/basic-node-express-api.git"
+  },
+  "author": "Mudassar Tousif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tousifmudassar/basic-node-express-api/issues"
+  },
+  "homepage": "https://github.com/tousifmudassar/basic-node-express-api#readme"
+}
