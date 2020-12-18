@@ -1,6 +1,6 @@
 const express = require("express");
-const users = require("./users");
-const todos = require("./todos");
+const users = require("./api/users");
+const todos = require("./api/todos");
 const app = express.Router();
 
 app.get("/", (req, res) => {
