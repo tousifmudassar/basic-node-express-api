@@ -4,19 +4,21 @@ const app = express.Router();
 
 app.get("/", (req, res) => {
   res.json(
-    users.map(u => {
-      const a = { ...u };
+    users.map((u, UserID) => {
+      const a = { UserID, ...u };
       delete a.Password;
       return a;
     })
   );
 });
 app.get("/:id", (req, res) => {
-  const id = +req.params.id;
-  if (!users[id]) {
+  const UserID = +req.params.id;
+  if (!users[UserID]) {
     res.status(404).json("Error! Todo Not Found!");
   } else {
-    res.status(202).json(users[id]);
+    const a = { UserID, ...users[UserID] };
+    delete a.Password;
+    res.status(202).json(a);
   }
 });
 module.exports = app;
