@@ -10,7 +10,7 @@ app.get("/:id", (req, res) => {
   if (!todos[id]) {
     res.status(404).json("Error! Todo Not Found!");
   } else {
-    res.status(202).json(todos[id]);
+    res.status(200).json(todos[id]);
   }
 });
 module.exports = app;

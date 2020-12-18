@@ -18,7 +18,7 @@ app.get("/:id", (req, res) => {
   } else {
     const a = { UserID, ...users[UserID] };
     delete a.Password;
-    res.status(202).json(a);
+    res.status(200).json(a);
   }
 });
 module.exports = app;
