@@ -1,9 +1,11 @@
 const express = require("express");
+const morgan = require("morgan");
 const root = require("./routes/root");
 const app = express();
 const port = 3000;
 // const todos = ["Milk", "Curd", "Sugar"];
 
+app.use(morgan("dev"));
 app.use("/", root);
 
 // app.get("/", (req, res) => {
