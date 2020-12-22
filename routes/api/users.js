@@ -6,13 +6,17 @@ app.use(express.json());
 let Authenticated = false;
 
 app.get("/", (req, res) => {
-  res.json(
-    users.map((u, UserID) => {
-      const a = { UserID, ...u };
-      delete a.Password;
-      return a;
-    })
-  );
+  if (Authenticated) {
+    res.json(
+      users.map((u, UserID) => {
+        const a = { UserID, ...u };
+        delete a.Password;
+        return a;
+      })
+    );
+  } else {
+    res.status(403).json("Please login to see!");
+  }
 });
 
 app.get("/login", (req, res) => {
