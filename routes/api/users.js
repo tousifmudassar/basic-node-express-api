@@ -2,10 +2,9 @@ const express = require("express");
 const users = require("../../constants/users");
 const app = express.Router();
 
-app.use(express.json());
-let Authenticated = false;
-
 app.get("/", (req, res) => {
+  //This needs to be implemented on session basis.
+  const Authenticated = false;
   if (Authenticated) {
     res.json(
       users.map((u, UserID) => {

@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 // const todos = ["Milk", "Curd", "Sugar"];
 
+app.use(express.json());
 app.use(morgan("dev"));
 app.use("/", root);
 
