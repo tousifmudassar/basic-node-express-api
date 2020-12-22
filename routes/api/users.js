@@ -3,8 +3,7 @@ const users = require("../../constants/users");
 const app = express.Router();
 
 app.get("/", (req, res) => {
-  //This needs to be implemented on session basis.
-  const Authenticated = false;
+  const { Authenticated } = req.session;
   if (Authenticated) {
     res.json(
       users.map((u, UserID) => {
@@ -19,7 +18,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+  //This needs to be implemented on session basis.
+  const { Authenticated } = req.session;
   res.json({ Authenticated });
+});
+app.post("/logout", (req, res) => {
+  res.destroy();
+  res.json({ Success: true });
 });
 app.post("/login", (req, res) => {
   const { Username, Password } = req.body;
@@ -32,11 +37,14 @@ app.post("/login", (req, res) => {
         u.Password === Password
     );
     if (matched.length === 1) {
-      Authenticated = true;
+      const user = { ...matched[0] };
+      delete user.Password;
+      req.session.Authenticated = user;
       res.json({ Sucess: true });
     } else if (matched.length === 0) {
-      Authenticated = false;
-      res.status(401).json("Oops! Bad Credentials!");
+      req.session.destroy(() => {
+        res.status(401).json("Oops! Bad Credentials!");
+      });
     }
   }
 });
