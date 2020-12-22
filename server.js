@@ -9,7 +9,9 @@ const port = 3000;
 app.use(express.json());
 app.use(
   session({
-    secret: "corona"
+    secret: "corona",
+    resave: false,
+    saveUninitialized: false
   })
 );
 app.use(morgan("dev"));
