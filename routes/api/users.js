@@ -17,15 +17,6 @@ app.get("/", (req, res) => {
   }
 });
 
-app.get("/login", (req, res) => {
-  //This needs to be implemented on session basis.
-  const { Authenticated } = req.session;
-  res.json({ Authenticated });
-});
-app.post("/logout", (req, res) => {
-  res.destroy();
-  res.json({ Success: true });
-});
 app.post("/login", (req, res) => {
   const { Username, Password } = req.body;
   if (!Username || !Password) {
@@ -47,6 +38,15 @@ app.post("/login", (req, res) => {
       });
     }
   }
+});
+app.get("/login", (req, res) => {
+  //This needs to be implemented on session basis.
+  const { Authenticated } = req.session;
+  res.json({ Authenticated });
+});
+app.post("/logout", (req, res) => {
+  res.destroy();
+  res.json({ Success: true });
 });
 
 app.get("/:id", (req, res) => {
