@@ -2,7 +2,7 @@ const express = require("express");
 const users = require("../../constants/users");
 const app = express.Router();
 
-app.use("/", (req, res, next) => {
+app.use((req, res, next) => {
   const { Authenticated } = req.session;
   if (
     Authenticated ||
@@ -24,7 +24,6 @@ app.get("/", (req, res) => {
     })
   );
 });
-
 app.post("/", (req, res) => {
   const { Username, Name, Password, LinkedIn } = req.body;
   if (!Username || !Password || !Name) {
@@ -65,17 +64,15 @@ app.post("/", (req, res) => {
     }
   }
 });
-
 app.get("/login", (req, res) => {
   //This needs to be implemented on session basis.
   const { Authenticated } = req.session;
   res.json({ Authenticated });
 });
-
 app.post("/login", (req, res) => {
   const { Username, Password } = req.body;
   if (!Username || !Password) {
-    res.status(400).json("Need both Username and Password");
+    res.status(400).json("Need both Username and Password.");
   } else {
     const matched = users.filter(
       u =>
@@ -103,7 +100,6 @@ app.post("/logout", (req, res) => {
     res.json({ Success: true });
   });
 });
-
 app.get("/:id", (req, res) => {
   const UserID = +req.params.id;
   if (users[UserID]) {
@@ -119,6 +115,18 @@ app.delete("/:id", (req, res) => {
   if (users[UserID] && users[UserID].Name) {
     users[UserID] = {};
     res.status(204).json();
+  } else {
+    res.status(404).json("Error! User Not Found!");
+  }
+});
+app.put("/:id", (req, res) => {
+  const UserID = +req.params.id;
+  if (users[UserID]) {
+    users[UserID] = req.body;
+    res.status(202).json({
+      Sucess: true,
+      Message: `Updated the user ${users[UserID].Name}.`
+    });
   } else {
     res.status(404).json("Error! User Not Found!");
   }
