@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
     res.status(403).json("Please login to see!");
   }
 });
+
 app.post("/", (req, res) => {
   const { Username, Name, Password, LinkedIn } = req.body;
   if (!Username || !Password || !Name) {
