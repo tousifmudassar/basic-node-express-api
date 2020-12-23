@@ -73,7 +73,11 @@ app.post("/login", (req, res) => {
       res.json({ Sucess: true });
     } else if (matched.length === 0) {
       req.session.destroy(() => {
-        res.status(401).json("Oops! Bad Credentials!");
+        res.status(401).json("Oops! Bad Credentials! Try Again!");
+      });
+    } else if (matched.length > 1) {
+      req.session.destroy(() => {
+        res.status(500).json("A lot of users are matching!");
       });
     }
   }
