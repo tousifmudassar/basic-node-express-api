@@ -36,6 +36,13 @@ app.post("/", (req, res) => {
           "Username, Password and Name should be at least 4 characters in length."
       });
     } else {
+      const matches = users.find(u => u.Username === Username);
+      if (matches > 0) {
+        res.status(409).json({
+          Success: false,
+          Message: "User already exists!"
+        });
+      }
       users.push({
         Username,
         Name,
