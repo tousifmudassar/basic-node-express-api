@@ -41,6 +41,10 @@ app.post("/", (req, res) => {
         Password,
         LinkedIn
       });
+      res.status(201).json({
+        Success: true,
+        Message: `User ${Username} hase been added to the data base.`
+      });
     }
   }
 });
@@ -74,8 +78,9 @@ app.post("/login", (req, res) => {
   }
 });
 app.post("/logout", (req, res) => {
-  res.destroy();
-  res.json({ Success: true });
+  req.session.destroy(() => {
+    res.json({ Success: true });
+  });
 });
 
 app.get("/:id", (req, res) => {
